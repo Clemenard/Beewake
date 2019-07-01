@@ -6,3 +6,5 @@ Je me suis ensuite concentré sur la définition de la classe User, ses getter/s
 J'ai affiné mes fonctions pour qu'un maximum de choses soient définies au sein de la classe
 Puis j'ai reproduit le rendu de la page
 Il me reste encore à améliorer ma gestion d'erreurs, qui reste très basique
+
+Je ne sais pas encore me servir de Docker, je vais étudier la question
