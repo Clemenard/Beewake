@@ -8,6 +8,7 @@ $(document).ready(function(){
        success: function(request){
 
 Cookies.set('users',request);
+document.location.href="index.php";
 }
 });
 
@@ -28,12 +29,16 @@ newUser.addUser(request.data)
 
 //Delete an user
 oldUser=newUser.getUser(3,request.data)
-oldUser.deleteUser(request.data)
+if(oldUser) {oldUser.deleteUser(request.data)}
 
 //Update an user
 changingUser = newUser.getUser(7,request.data)
-changingUser.setEmail("clement.menard.13@gmail.com")
-changingUser.updateUser(request.data)
+if(changingUser) {changingUser.setEmail("clement.menard.13@gmail.com")
+changingUser.updateUser(request.data)}
+
+
+Cookies.set('users',request);
+
 
 // Html/Css layout
 var content ='<table class="table table-dark table-striped">'
@@ -57,4 +62,5 @@ for(  key of keys ) {
 }
  content +='</table>'
 $('#content').html(content);
+
 } ) ;

@@ -57,11 +57,13 @@ if(user.id==this.id){
 }
 i++
   }
+  return users
 }
 
 updateUser(users){
 this.deleteUser(users)
 this.addUser(users)
+return users
 }
 
 }
