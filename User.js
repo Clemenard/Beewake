@@ -43,27 +43,44 @@ return false
      }
      this.setId(idmax+1)
    }
-
 users.push(this);
 return users;
   }
 
-  deleteUser(users){
+  deleteUser(id,users){
     var i=0
+    var oldUser = this.getUser(id,request.data)
+    if(oldUser) {
+
     for(var user of users){
-if(user.id==this.id){
+if(user.id==oldUser.id){
   users.splice(i,1)
   break
 }
 i++
   }
-  return users
+
+}
+else{ return false}
 }
 
-updateUser(users){
-this.deleteUser(users)
-this.addUser(users)
-return users
+updateUser(id,array,users){
+  var changeUser = this.getUser(id,request.data)
+  if(changeUser) {
+  var keys = Object.keys(array)
+for(var key of keys){
+switch (key){
+case "first_name": changeUser.setFirst_name(array.first_name);break
+case "last_name": changeUser.setLast_name(array.last_name);break
+case "email": changeUser.setEmail(array.email);break
+case "avatar": changeUser.setAvatar(array.avatar);break
+default : break;
+}
+}
+changeUser.deleteUser(id,users)
+changeUser.addUser(users)
+}
+else { return false;}
 }
 
 }
