@@ -8,9 +8,11 @@
     <link rel="stylesheet" href="style.css">
   <title>Beewalk : List of users</title>
 </head>
+
 <body>
 <div id="content"></div>
 </body>
+
 <script
 src="https://code.jquery.com/jquery-3.3.1.min.js"
 integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
