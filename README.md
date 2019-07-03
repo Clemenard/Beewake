@@ -18,3 +18,5 @@ L'appel à l'application externe se ferait dans le cadre d'une de ces trois opé
 
 Il faudrait donc recréer la classe User en php et y adjoindre les requetes pdo permettant la communication avec la bdd, en plus de créer cette dernière
 Et enfin, prévoir une interface permettant à l'utilisateur de se connecter/s'inscrire/éditer son compte/le supprimer, ainsi qu'une page listant les utilisateurs interne plus externes en les différenciants
+
+Note : Il est possible de prévoir deux classes filles ExternalUser et InternalUser si les propriétés des deux objets ont des différences
