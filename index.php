@@ -1,17 +1,36 @@
 <?php require_once('inc/init.php');
 
 if(isset($_GET['action'])) {
-if(isset($_GET['id']) && $_GET['action']=='delete') {
-$setUser->deleteUser($_GET['id']);
-}
-if(isset($_GET['action']) && $_GET['action']=='login'){
-  $myUser=$setUser->getUserbyMail($_POST['email']);
-  if (is_a ($myUser,'UserEntity')){
-  $_SESSION['user']=$myUser;}
-  else {$_SESSION['error']='Erreur de connexion';}
-  header('Location: index.php');
-  exit();
+  if(isset($_GET['id']) && $_GET['action']=='delete') {
+    $setUser->deleteUser($_GET['id']);
   }
+
+  if(isset($_GET['action']) && $_GET['action']=='login'){
+
+    $myUser=$setUser->getUserbyMail($_POST['email']);
+    if (is_a ($myUser,'UserEntity')){
+      $_SESSION['user']=$myUser;
+      header('Location: index.php');
+      exit();
+    }
+    else {
+      foreach($_SESSION['users']['data'] as $guestUser){
+        if($_POST['email']==$guestUser['email']) {
+          $_SESSION['user']=$guestUser;
+
+        header('Location: index.php');
+        exit();
+
+}
+          else{
+            $_SESSION['error']='Erreur de connexion';
+
+          }
+        }
+        header('Location: index.php');
+        exit();
+      }
+    }
 
   if(isset($_GET['action']) && $_GET['action']=='logout'){
     session_destroy();
@@ -19,7 +38,7 @@ if(isset($_GET['action']) && $_GET['action']=='login'){
   exit();
     }
 
-    
+
   }
 ?>
 <!DOCTYPE html>
@@ -39,8 +58,12 @@ if(isset($_GET['action']) && $_GET['action']=='login'){
       <div><a class="btn btn-success" href="form.php">Create an account</a></div>
       <div>
         <? if(isset($_SESSION['user'])){
+          if(!is_array($_SESSION['user'])) {
           ?>
-          <p>Bienvenue <?= $_SESSION['user']->getFirst_Name() ?> !</p>
+          <p>Bienvenue <?= $_SESSION['user']->getFirst_Name() ?> !</p><?
+        }else{ ?>
+<p>Bienvenue <?= $_SESSION['user']['first_name'] ?> !</p><?
+} ?>
           <p><a class="btn btn-success" href="?action=logout">Log out</a></p>
        <?php } else { ?>
       <form action="?action=login" method="post">
@@ -53,7 +76,7 @@ if(isset($_GET['action']) && $_GET['action']=='login'){
        <?php if(!is_null($_SESSION['error'])){ ?><div class="alert alert-danger"><?php echo $_SESSION['error'];$_SESSION['error']=null; ?></div> <?php } ?>
 
 
-<?php 
+<?php
 
 
 /* ?><pre><?
@@ -61,7 +84,7 @@ if(isset($_GET['action']) && $_GET['action']=='login'){
 ?></pre> */
 ?> <h2>Users from Beewake</h2><?php
 if($users){
-  
+
 foreach($users as $user){ ?>
 <div class="row" class="user">
 <img class="col-4" src="<?php echo $user->getAvatar(); ?>" alt="Card image cap">
@@ -91,7 +114,7 @@ foreach($_SESSION['users']['data'] as $guestUser){
         </div>
         </div>
         <hr />
-   <?php } 
+   <?php }
  } ?>
 
 </div>
