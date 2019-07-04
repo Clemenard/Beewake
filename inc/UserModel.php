@@ -43,6 +43,18 @@ else {
 }
   }
 
+  public function getUserByMail($email){ 
+    $query = $this->execRequest("SELECT * FROM users  WHERE email= :email ",array('email'=> $email));
+    if( $query->rowCount() == 1 ){
+      $query->setFetchMode(PDO::FETCH_CLASS,'UserEntity');
+    $user=$query->fetch();
+    return $user;
+    }
+    else {
+        return false;
+    }
+      }
+
   public function getAllUsers(){ 
     $query = $this->execRequest("SELECT * FROM users");
     if( $query->rowCount() > 0 ){

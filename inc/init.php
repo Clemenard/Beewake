@@ -13,5 +13,7 @@ $db  = new PDO(
 require_once('inc/UserModel.php');
 require_once('inc/UserEntity.php');
 $setUser=new UserModel($db);
+session_start();
+$error='';
 
 ?>

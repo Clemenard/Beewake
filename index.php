@@ -1,9 +1,24 @@
 <?php require_once('inc/init.php');
 
-if(isset($_GET['id']) && isset($_GET['action']) && $_GET['action']=='delete'){
+if(isset($_GET['action'])) {
+if(isset($_GET['id']) && $_GET['action']=='delete') {
 $setUser->deleteUser($_GET['id']);
 }
+if(isset($_GET['action']) && $_GET['action']=='login'){
+  $myUser=$setUser->getUserbyMail($_POST['email']);
+  if (is_a ($myUser,'UserEntity')){
+  $_SESSION['user']=$myUser;}
+  else {$error='Erreur de connexion';}
+  }
 
+  if(isset($_GET['action']) && $_GET['action']=='logout'){
+    session_destroy();
+    header('Location: index.php');
+  exit();
+    }
+
+    
+  }
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -18,7 +33,23 @@ $setUser->deleteUser($_GET['id']);
 
 <body>
   <div class="container">
-<a class="btn btn-success" href="inc/form.php">S'inscrire</a>
+    <header class="navbar">
+      <div><a class="btn btn-success" href="inc/form.php">Create an account</a></div>
+      <div>
+        <? if(isset($_SESSION['user'])){
+          ?>
+          <p>Bienvenue <?= $_SESSION['user']->getFirst_Name() ?> !</p>
+          <p><a class="btn btn-success" href="?action=logout">Log out</a></p>
+       <?php }else{ ?>
+      <form action="?action=login" method="post">
+        <label for="">Email</label>
+        <input type="text" name="email">
+        <input type="submit" class="btn btn-success" value="Sign in" >
+       </form> <?php } ?></div>
+      <div></div>
+    </header>
+
+
 <?php 
 $users = $setUser->getAllUsers();
 
