@@ -10,5 +10,8 @@ $db  = new PDO(
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
   )
 );
+require_once('inc/UserModel.php');
+require_once('inc/UserEntity.php');
+$setUser=new UserModel($db);
 
 ?>

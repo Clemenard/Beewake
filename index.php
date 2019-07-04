@@ -1,6 +1,10 @@
 <?php require_once('inc/init.php');
-require_once('inc/UserModel.php');
-require_once('inc/UserEntity.php'); ?>
+
+if(isset($_GET['id']) && isset($_GET['action']) && $_GET['action']=='delete'){
+$setUser->deleteUser($_GET['id']);
+}
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -16,7 +20,6 @@ require_once('inc/UserEntity.php'); ?>
   <div class="container">
 <a class="btn btn-success" href="inc/form.php">S'inscrire</a>
 <?php 
-$setUser=new UserModel($db);
 $users = $setUser->getAllUsers();
 
 /* ?><pre><?
@@ -29,7 +32,8 @@ foreach($users as $user){ ?>
  <div class="col-8">
  <h5 class="card-title"><?= strtoupper($user->getFirst_name()).' '.strtoupper($user->getLast_name()) ?></h5>
   <p class="card-text"><?= $user->getEmail() ?></p>
-  <a class="btn btn-success" href="inc/form.php?id=<?= $user->getId() ?>">Editer le profil</a>
+  <a class="btn btn-success" href="inc/form.php?id=<?= $user->getId() ?>">Edit profil</a>
+  <a class="btn btn-success" href="?action=delete&id=<?= $user->getId() ?>">Delete profil</a>
   </div>
   </div>
   <hr />

@@ -1,8 +1,5 @@
 <?php
 require_once('init.php');
-require_once('UserModel.php');
-require_once('UserEntity.php');
-$setUser=new UserModel($db);
 if(isset($_POST['first_name'])){
     
     if(isset($_GET['action']) && $_GET['action']=='edit'){ 
