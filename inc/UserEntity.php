@@ -2,14 +2,15 @@
  class UserEntity{
      protected $id_users,$email,$first_name,$last_name,$avatar;
 
-  public function constructor($email,$first_name,$last_name,$avatar,$id=null) {
+/*   public function __construct($id,$first_name,$last_name,$email,$avatar) {
     $this->setEmail($email);
     $this->setFirst_name($first_name);
     $this->setLast_name($last_name);
     $this->setAvatar($avatar);
     $this->setId($id);
+    
     return $this;
-  }
+  } */
 
   public function setEmail($email){$this->email = $email;}
   public function getEmail(){return $this->email;}

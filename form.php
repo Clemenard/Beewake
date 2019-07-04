@@ -1,5 +1,5 @@
 <?php
-require_once('init.php');
+require_once('inc/init.php');
 if(isset($_POST['first_name'])){
     
     if(isset($_GET['action']) && $_GET['action']=='edit'){ 
@@ -9,7 +9,7 @@ if(isset($_POST['first_name'])){
     else{
         $setUser->addUser($_POST);
     }
-    header('Location: ../index.php');
+    header('Location: index.php');
   exit();
 }
 if(isset($_GET['id'])){
@@ -37,7 +37,7 @@ if(isset($_GET['id'])){
         <input type="text" name="email" class="form-control" value="<?php if(isset($_GET['id'])){echo $user->getEmail();}  ?>">
         <label for="">Lien vers l'avatar</label>
         <input type="text" name="avatar" class="form-control" value="<?php if(isset($_GET['id'])){echo $user->getAvatar();}  ?>">
-        <input type="submit" value="Sign in">
+        <input type="submit" value="<?php if(isset($_GET['id'])){echo "Edit";}else{echo 'Sign in';}?>">
     </form>    
     
 </body>
