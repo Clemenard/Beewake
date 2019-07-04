@@ -1,17 +1,7 @@
-<?php
-
-$pdo = new PDO(
-  'mysql:host=localhost;dbname=beewake',
-  'root',
-  'root',
-  array(
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING,
-    PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
-  )
-);
-
-?><!DOCTYPE html>
+<?php require_once('inc/init.php');
+require_once('inc/UserModel.php');
+require_once('inc/UserEntity.php'); ?>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -23,7 +13,28 @@ $pdo = new PDO(
 </head>
 
 <body>
+  <div class="container">
+<a class="btn btn-success" href="inc/form.php">S'inscrire</a>
+<?php 
+$setUser=new UserModel($db);
+$users = $setUser->getAllUsers();
+
+/* ?><pre><?
+  var_dump($user);
+?></pre> */
+?> <h2>Users from Beewake</h2><?php
+foreach($users as $user){ ?>
+<div class="row" class="user">
+<img class="col-4" src="<?php echo $user->getAvatar(); ?>" alt="Card image cap">
+ <div class="col-8">
+ <h5 class="card-title"><?= strtoupper($user->getFirst_name()).' '.strtoupper($user->getLast_name()) ?></h5>
+  <p class="card-text"><?= $user->getEmail() ?></p>
+  </div>
+  </div>
+  <hr />
+<?php } ?>
 <div id="content"></div>
+</div>
 </body>
 
 <script

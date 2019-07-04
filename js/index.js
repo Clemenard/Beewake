@@ -50,7 +50,7 @@ $(document).ready(function(){
 
 
 // Html/Css layout
-  var content = '<div class="container">'
+  var content = '<h2>Users from partners</h2>'
   for(user of request.data){
     content +='<div class="row" class="user">'
     content +=  '<img class="col-4" src="' + user.getAvatar() + '" alt="Card image cap">'
@@ -61,7 +61,6 @@ $(document).ready(function(){
     content +='</div>'
     content+='<hr />'
   }
- content+='</div>'
  $('#content').html(content);
 
 })
