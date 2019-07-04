@@ -2,11 +2,22 @@
 require_once('init.php');
 require_once('UserModel.php');
 require_once('UserEntity.php');
+$setUser=new UserModel($db);
 if(isset($_POST['first_name'])){
-    $setUser=new UserModel($db);
-    $setUser->addUser($_POST);
+    
+    if(isset($_GET['action']) && $_GET['action']=='edit'){ 
+        $setUser->updateUser($_GET['id'],$_POST);
+
+    }
+    else{
+        $setUser->addUser($_POST);
+    }
     header('Location: ../index.php');
   exit();
+}
+if(isset($_GET['id'])){
+    $user=$setUser->getUser($_GET['id']);
+
 }
 ?>
 <!DOCTYPE html>
@@ -20,15 +31,15 @@ if(isset($_POST['first_name'])){
     <title>Suscribe</title>
 </head>
 <body>
-    <form action="" method="post" class="form-group">
+    <form action="<?php if(isset($_GET['id'])){echo "?action=edit&id=".$_GET['id'];}  ?>" method="post" class="form-group">
         <label for="">Prénom</label>
-        <input type="text" name="first_name" class="form-control">
+        <input type="text" name="first_name" class="form-control" value="<?php if(isset($_GET['id'])){echo $user->getFirst_name();}  ?>">
         <label for="">Nom</label>
-        <input type="text" name="last_name" class="form-control">
+        <input type="text" name="last_name" class="form-control" value="<?php if(isset($_GET['id'])){echo $user->getLast_name();}  ?>">
         <label for="">Email</label>
-        <input type="text" name="email" class="form-control">
+        <input type="text" name="email" class="form-control" value="<?php if(isset($_GET['id'])){echo $user->getEmail();}  ?>">
         <label for="">Lien vers l'avatar</label>
-        <input type="text" name="avatar" class="form-control">
+        <input type="text" name="avatar" class="form-control" value="<?php if(isset($_GET['id'])){echo $user->getAvatar();}  ?>">
         <input type="submit" value="Sign in">
     </form>    
     

@@ -1,6 +1,6 @@
  <?php 
  class UserEntity{
-     protected $id,$email,$first_name,$last_name,$avatar;
+     protected $id_users,$email,$first_name,$last_name,$avatar;
 
   public function constructor($email,$first_name,$last_name,$avatar,$id=null) {
     $this->setEmail($email);
@@ -19,7 +19,7 @@
   public function getLast_name(){return $this->last_name;}
   public function setAvatar($avatar){$this->avatar=$avatar;}
   public function getAvatar(){return $this->avatar;}
-  public function setId($id){$this->id=$id;}
-  public function getId(){return $this->id;}
+  public function setId($id){$this->id_users=$id;}
+  public function getId(){return $this->id_users;}
  }
  ?>

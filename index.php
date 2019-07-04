@@ -29,6 +29,7 @@ foreach($users as $user){ ?>
  <div class="col-8">
  <h5 class="card-title"><?= strtoupper($user->getFirst_name()).' '.strtoupper($user->getLast_name()) ?></h5>
   <p class="card-text"><?= $user->getEmail() ?></p>
+  <a class="btn btn-success" href="inc/form.php?id=<?= $user->getId() ?>">Editer le profil</a>
   </div>
   </div>
   <hr />

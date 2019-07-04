@@ -60,7 +60,7 @@ else {
   }
 
   public function deleteUser($id){
-     $this->execRequest("DELETE FROM users WHERE id_user=:id",array('id' => $id));
+     $this->execRequest("DELETE FROM users WHERE id_users=:id",array('id' => $id));
   }
 
   public function updateUser($id,$infos){
@@ -68,7 +68,7 @@ else {
       $newValues[]="$key = :$key";
     }
   $infos['id']=$id;
-    $this->execRequest('UPDATE users SET '.implode(',',$newValues) .' WHERE id_user = :id',$infos);
+    $this->execRequest('UPDATE users SET '.implode(',',$newValues) .' WHERE id_users = :id',$infos);
   }
   }
   ?>
