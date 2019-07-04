@@ -78,7 +78,7 @@ foreach($users as $user){ ?>
 
 } }
 
-?> <h2>Users from partners</h2>
+?> <h2>Users from partners</h2><?php
 foreach($_SESSION['users']['data'] as $guestUser){
 
     if(!$setUser->getUserByMail($guestUser['email'] ) ) {
