@@ -1,6 +1,4 @@
-<?php 
-
-
+<?php
 class UserModel {
 
   protected $db;
@@ -22,7 +20,7 @@ return $this->db;}
       foreach($params as $key => $value){
         $params[$key] = htmlspecialchars($value,ENT_QUOTES);
         $r->bindValue($key,$params[$key],PDO::PARAM_STR);
-      }    
+      }
     }
     $r->execute();
     if ( !empty( $r->errorInfo()[2] )){
@@ -31,10 +29,10 @@ return $this->db;}
     return $r;
   }
 
-  public function getUser($id){ 
+  public function getUser($id){
 $query = $this->execRequest("SELECT * FROM users  WHERE id_users= :id ",array('id'=> $id));
 if( $query->rowCount() == 1 ){
-  $query->setFetchMode(PDO::FETCH_CLASS,'UserEntity');
+  $query->setFetchMode(PDO::FETCH_CLASS,'UserInternEntity');
 $user=$query->fetch();
 return $user;
 }
@@ -43,10 +41,10 @@ else {
 }
   }
 
-  public function getUserByMail($email){ 
+  public function getUserByMail($email){
     $query = $this->execRequest("SELECT * FROM users  WHERE email= :email ",array('email'=> $email));
     if( $query->rowCount() == 1 ){
-      $query->setFetchMode(PDO::FETCH_CLASS,'UserEntity');
+      $query->setFetchMode(PDO::FETCH_CLASS,'UserInternEntity');
     $user=$query->fetch();
     return $user;
     }
@@ -55,10 +53,10 @@ else {
     }
       }
 
-  public function getAllUsers(){ 
+  public function getAllUsers(){
     $query = $this->execRequest("SELECT * FROM users");
     if( $query->rowCount() > 0 ){
-    $users=$query->fetchAll(PDO::FETCH_CLASS,'UserEntity');
+    $users=$query->fetchAll(PDO::FETCH_CLASS,'UserInternEntity');
     return $users;
     }
     else {

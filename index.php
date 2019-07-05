@@ -102,15 +102,15 @@ foreach($users as $user){ ?>
 } }
 
 ?> <h2>Users from partners</h2><?php
-foreach($_SESSION['users']['data'] as $guestUser){
+foreach($_SESSION['users'] as $guestUser){
 
-    if(!$setUser->getUserByMail($guestUser['email'] ) ) {
+    if(!$setUser->getUserByMail($guestUser->getEmail() ) ) {
       ?>
       <div class="row" class="user">
-      <img class="col-4" src="<?php echo $guestUser['avatar']; ?>" alt="Card image cap">
+      <img class="col-4" src="<?= $guestUser->getAvatar() ?>" alt="Card image cap">
        <div class="col-8">
-       <h5 class="card-title"><?= strtoupper($guestUser['first_name']).' '.strtoupper($guestUser['last_name']) ?></h5>
-        <p class="card-text"><?= $guestUser['email'] ?></p>
+       <h5 class="card-title"><?= strtoupper($guestUser->getFirst_Name()).' '.strtoupper($guestUser->getLast_name()) ?></h5>
+        <p class="card-text"><?= $guestUser->getEmail() ?></p>
         </div>
         </div>
         <hr />
