@@ -14,43 +14,34 @@ $(document).ready(function(){
 
   //Create User objects with the data
 
-  request = Cookies.getJSON('users');
+/*   request = Cookies.getJSON('users');
   var users=[]
   for(user of request.data){
     userObject = new User(user.email,user.first_name,user.last_name,user.avatar,user.id);
     userObject.addUser(users)
   }
-  request.data = users
-
-//Create User objects with the data
-
-  var users=[]
-  for(user of request.data){
-    userObject = new User(user.email,user.first_name,user.last_name,user.avatar,user.id);
-    userObject.addUser(users)
-  }
-  request.data = users
+  request = users */
 
 // Adding a new user
 
-  var newUser= new User("contact@clement-menard.fr","Clément","Menard","https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-9/10172624_10152106710023106_8746587590316635122_n.jpg?_nc_cat=110&_nc_oc=AQlCD8vEu12rYftxm6T17gITt5coh6n979GNTSJqBUlbq0ktXEJmNsqHRul_Wp2sDxc&_nc_ht=scontent-cdg2-1.xx&oh=3e3d56bc6e6e1e58335afd328cb58b00&oe=5DB25AF1");
-  newUser.addUser(request.data)
+/*   var newUser= new User("contact@clement-menard.fr","Clément","Menard","https://scontent-cdg2-1.xx.fbcdn.net/v/t1.0-9/10172624_10152106710023106_8746587590316635122_n.jpg?_nc_cat=110&_nc_oc=AQlCD8vEu12rYftxm6T17gITt5coh6n979GNTSJqBUlbq0ktXEJmNsqHRul_Wp2sDxc&_nc_ht=scontent-cdg2-1.xx&oh=3e3d56bc6e6e1e58335afd328cb58b00&oe=5DB25AF1");
+  newUser.addUser(request.data) */
 
 //Delete an user
 
-  userObject.deleteUser(3,request.data)
+  /* userObject.deleteUser(3,request.data) */
 
 //Update an user
 
-  var changes = {"email":"clement.menard.13@gmail.com"}
-  userObject.updateUser(7,changes,request.data)
+ /*  var changes = {"email":"clement.menard.13@gmail.com"}
+  userObject.updateUser(7,changes,request.data) */
 
 
   Cookies.set('users',request);
 
 
 // Html/Css layout
-  var content = '<div class="container">'
+  var content = '<h2>Users from partners</h2>'
   for(user of request.data){
     content +='<div class="row" class="user">'
     content +=  '<img class="col-4" src="' + user.getAvatar() + '" alt="Card image cap">'
@@ -61,7 +52,6 @@ $(document).ready(function(){
     content +='</div>'
     content+='<hr />'
   }
- content+='</div>'
  $('#content').html(content);
 
 })
