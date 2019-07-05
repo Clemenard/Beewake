@@ -14,26 +14,29 @@ if(isset($_GET['action'])) {
       exit();
     }
     else {
-      foreach($_SESSION['users']['data'] as $guestUser){
-        if($_POST['email']==$guestUser['email']) {
-          $_SESSION['user']=$guestUser;
+      $url = 'https://reqres.in/api/users?page=1&per_page=6';
+  $json = file_get_contents($url);
+  $arrayJson = json_decode($json, true);
+   foreach($arrayJson['data'] as $guestUser){
 
-        header('Location: index.php');
-        exit();
+      $guestUser=new UserExternEntity(NULL,$guestUser['first_name'],$guestUser['last_name'],$guestUser['email'],$guestUser['avatar']);
+      if($guestUser->getEmail()==$_POST['email']){$_SESSION['user']=$guestUser;}
+      $_SESSION['users'][]=$guestUser;
 
+      }
+      if(isset($_SESSION['user'])){
+      header('Location: index.php');
+      exit();
 }
           else{
             $_SESSION['error']='Erreur de connexion';
 
           }
         }
-        header('Location: index.php');
-        exit();
-      }
     }
 
   if(isset($_GET['action']) && $_GET['action']=='logout'){
-    session_destroy();
+    unset($_SESSION['user']);
     header('Location: index.php');
   exit();
     }
@@ -58,12 +61,9 @@ if(isset($_GET['action'])) {
       <div><a class="btn btn-success" href="form.php">Create an account</a></div>
       <div>
         <? if(isset($_SESSION['user'])){
-          if(!is_array($_SESSION['user'])) {
           ?>
           <p>Bienvenue <?= $_SESSION['user']->getFirst_Name() ?> !</p><?
-        }else{ ?>
-<p>Bienvenue <?= $_SESSION['user']['first_name'] ?> !</p><?
-} ?>
+        ?>
           <p><a class="btn btn-success" href="?action=logout">Log out</a></p>
        <?php } else { ?>
       <form action="?action=login" method="post">

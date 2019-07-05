@@ -31,7 +31,7 @@ $arrayJson = json_decode($json, true);
     }
 }
 
-var_dump($_SESSION['users']);
+// var_dump($_SESSION['users']);
 
 
 ?>
