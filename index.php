@@ -1,12 +1,14 @@
 <?php require_once('inc/init.php');
 
 if(isset($_GET['action'])) {
+
+  // Delete an user from the database
   if(isset($_GET['id']) && $_GET['action']=='delete') {
     $setUser->deleteUser($_GET['id']);
   }
 
+  // Login with email, test first internal, then external
   if(isset($_GET['action']) && $_GET['action']=='login'){
-
     $myUser=$setUser->getUserbyMail($_POST['email']);
     if (is_a ($myUser,'UserEntity')){
       $_SESSION['user']=$myUser;
@@ -14,12 +16,14 @@ if(isset($_GET['action'])) {
       exit();
     }
     else {
+      unset($_SESSION['users']);
       $url = 'https://reqres.in/api/users?page=1&per_page=6';
   $json = file_get_contents($url);
   $arrayJson = json_decode($json, true);
+    // var_dump($arrayJson);
    foreach($arrayJson['data'] as $guestUser){
 
-      $guestUser=new UserExternEntity(NULL,$guestUser['first_name'],$guestUser['last_name'],$guestUser['email'],$guestUser['avatar']);
+      $guestUser=new UserExternEntity($guestUser['first_name'],$guestUser['last_name'],$guestUser['email'],$guestUser['avatar']);
       if($guestUser->getEmail()==$_POST['email']){$_SESSION['user']=$guestUser;}
       $_SESSION['users'][]=$guestUser;
 
@@ -35,15 +39,37 @@ if(isset($_GET['action'])) {
         }
     }
 
-  if(isset($_GET['action']) && $_GET['action']=='logout'){
+//Log out
+  if($_GET['action']=='logout'){
     unset($_SESSION['user']);
     header('Location: index.php');
   exit();
     }
 
+    if(isset($_GET['id']) && $_GET['action']=='update'){
+      unset($_SESSION['users']);
+      $url = 'https://reqres.in/api/users?page=1&per_page=6';
+  $json = file_get_contents($url);
+  $arrayJson = json_decode($json, true);
+
+   foreach($arrayJson['data'] as $guestUser){
+if($guestUser['email']==$setUser->getUser($_GET['id'])->getEmail()) {
+  unset($guestUser['id']);
+  $setUser->updateUser($_GET['id'],$guestUser);
+}
+      $guestUser=new UserExternEntity($guestUser['first_name'],$guestUser['last_name'],$guestUser['email'],$guestUser['avatar']);
+      $_SESSION['users'][]=$guestUser;
+
+      }
+
+      header('Location: index.php');
+    exit();
+      }
 
   }
-?>
+  ?><pre><?
+  // var_dump($_SESSION['users']);
+?></pre>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -93,6 +119,9 @@ foreach($users as $user){ ?>
   <p class="card-text"><?= $user->getEmail() ?></p>
   <a class="btn btn-success" href="form.php?id=<?= $user->getId() ?>">Edit profil</a>
   <a class="btn btn-success" href="?action=delete&id=<?= $user->getId() ?>">Delete profil</a>
+  <?php if(getUserByEmail($_SESSION['users'],$user->getEmail()) != false ){  ?>
+    <a class="btn btn-success" href="?action=update&id=<?= $user->getId() ?>">Sync profil</a>
+  <?php } ?>
   </div>
   </div>
   <hr />
