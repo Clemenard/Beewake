@@ -3,6 +3,8 @@
   margin-top: 50px;
 }
 .card-text, .card-title{
-  color : grey;  
+  color : grey;
 }
-
+#danger{
+  display: none;
+}

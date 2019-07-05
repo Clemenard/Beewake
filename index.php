@@ -109,7 +109,7 @@ if($guestUser['email']==$setUser->getUser($_GET['id'])->getEmail()) {
        </form> <?php } ?></div>
       <div></div>
     </header>
-       <?php if(!is_null($_SESSION['error'])){ ?><div class="alert alert-danger"><?php echo $_SESSION['error'];$_SESSION['error']=null; ?></div> <?php } ?>
+       <?php if(!is_null($_SESSION['error'])){ ?><div class="alert alert-danger" id="danger"><?php echo $_SESSION['error'];$_SESSION['error']=null; ?></div> <?php } ?>
 
 
 <?php

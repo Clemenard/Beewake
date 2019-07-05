@@ -39,6 +39,7 @@ else{
     <title>Suscribe</title>
 </head>
 <body>
+   <div class="alert alert-danger" id="danger" ></div>
     <form action="<?php if(isset($_GET['id'])){echo "?action=edit&id=".$_GET['id'];}  ?>" method="post" class="form-group">
         <label for="">Prénom</label>
         <input type="text" id='first_name' name="first_name" class="form-control" value="<?= $user->getFirst_name() ?>">
