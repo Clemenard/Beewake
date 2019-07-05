@@ -5,6 +5,8 @@ if(isset($_GET['action'])) {
   // Delete an user from the database
   if(isset($_GET['id']) && $_GET['action']=='delete') {
     $setUser->deleteUser($_GET['id']);
+    header('Location: index.php');
+    exit();
   }
 
   // Login with email, test first internal, then external
@@ -46,6 +48,7 @@ if(isset($_GET['action'])) {
   exit();
     }
 
+//Sync data
     if(isset($_GET['id']) && $_GET['action']=='update'){
       unset($_SESSION['users']);
       $url = 'https://reqres.in/api/users?page=1&per_page=6';
@@ -56,6 +59,10 @@ if(isset($_GET['action'])) {
 if($guestUser['email']==$setUser->getUser($_GET['id'])->getEmail()) {
   unset($guestUser['id']);
   $setUser->updateUser($_GET['id'],$guestUser);
+
+  if($_SESSION['user']->getEmail()==$guestUser['email']){
+    $_SESSION['user']=$setUser->getUser($_GET['id']);
+  }
 }
       $guestUser=new UserExternEntity($guestUser['first_name'],$guestUser['last_name'],$guestUser['email'],$guestUser['avatar']);
       $_SESSION['users'][]=$guestUser;
@@ -88,7 +95,10 @@ if($guestUser['email']==$setUser->getUser($_GET['id'])->getEmail()) {
       <div>
         <? if(isset($_SESSION['user'])){
           ?>
-          <p>Bienvenue <?= $_SESSION['user']->getFirst_Name() ?> !</p><?
+          <p>Welcome <?= $_SESSION['user']->getFirst_Name() ?> !</p><?
+          if(is_a($_SESSION['user'],'UserExternEntity')) { ?>
+          <a class="btn btn-success" href="form.php?action=insertExtern">Import your data</a>
+        <?php  }
         ?>
           <p><a class="btn btn-success" href="?action=logout">Log out</a></p>
        <?php } else { ?>
