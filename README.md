@@ -20,3 +20,27 @@ Il faudrait donc recréer la classe User en php et y adjoindre les requetes pdo 
 Et enfin, prévoir une interface permettant à l'utilisateur de se connecter/s'inscrire/éditer son compte/le supprimer, ainsi qu'une page listant les utilisateurs interne plus externes en les différenciants
 
 Note : Il est possible de prévoir deux classes filles ExternalUser et InternalUser si les propriétés des deux objets ont des différences
+
+--
+Structure de l'app : 
+Index.php
+Login --> charge en session un utilisateur interne ou externe
+Logout (if session['user']) --> supprime de la session l'utilisateur courant
+Suscribe --> form.php
+
+Affiche tous les utilisateurs internes
+For internal users
+Edit --> form.php avec les infos chargées
+Delete --> supprime l'utilisateur de la bdd et le logout
+Sync (if email intern=email extern) -->fait correspondre les données internes de l'utilisateur aux données externes
+
+Affiche tous les utilisateurs externes qui ne sont pas aussi internes
+
+Form.php
+Si en mode édition, permet d'updater le profil session et bdd
+Si en mode inscription, permet d'ajouter un utilisateur en base
+En mode inscription, permet de charger un profil externe si l'email correspond
+Bouton retour à l'accueil --> index.php
+
+
+
