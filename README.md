@@ -1,5 +1,6 @@
 # Beewake
 Ajax and json manipulation exercice
+Même exercice sous Symfony3 : https://github.com/Clemenard/symfony_sandbox
 
 J'ai commencé par importer les données, les ai mis en cookie puis affichées en html.
 Je me suis ensuite concentré sur la définition de la classe User, ses getter/setters et son crud (améliorables, par exemple en plaçant des restrictions sur les formats des champs)
