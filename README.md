@@ -1,4 +1,5 @@
 # Beewake
+Site hébergé à l'adresse suivante : http://beewake.clement-menard.fr/
 Ajax and json manipulation exercice
 Même exercice sous Symfony3 : https://github.com/Clemenard/symfony_sandbox
 
